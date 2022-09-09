@@ -87,7 +87,7 @@ for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + 200){
                     sumatorio = sumatorio + parseInt(key)
             }
             if (sumatorio != 0){
-                dibujar_en_canvas(canvas_context, pixel_x, pixel_y, "rgb("+ objeto_tonos[sumatorio][0] +", "+ objeto_tonos[sumatorio][0] +", "+ objeto_tonos[sumatorio][0] +")")
+                dibujar_en_canvas(canvas_context, i, j, "rgb("+ objeto_tonos[sumatorio][0] +", "+ objeto_tonos[sumatorio][0] +", "+ objeto_tonos[sumatorio][0] +")")
 
                 //dibujar_en_canvas(canvas_resultados, i, j, 22, "rgb("+ objeto_tonos[sumatorio][0] +", "+ objeto_tonos[sumatorio][0] +", "+ objeto_tonos[sumatorio][0] +")")
                 console.log('sumatorio : ' + sumatorio + ' --- coor_x: ' + i + ' , coor_y: ' + j)
