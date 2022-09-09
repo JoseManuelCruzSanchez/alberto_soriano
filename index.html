@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {padding: 20px;}
+            pre {color: black}
+            img {position: relative; border: 2px solid gold;}
+            #canvas_resultados{border: 3px solid black;}
+        </style>
+    </head>
+    <body>
+
+        <canvas id="canvas_resultados" width="3065" height="3771">
+
+
+        </canvas>
+
+        <div id="contenedor_imagenes">
+            <img src="082418.png">
+            <img src="082500.png">
+            <img src="082506.png">
+            <img src="082518.png">
+            <img src="082618.png">
+        </div>
+
+<script>
+
+    let canvas_resultados = document.getElementById('canvas_resultados')
+
+    
+    //dibujar_en_canvas(canvas_resultados, 500, 500, 1, "rgb(255, 165, 0)")
+    dibujar_en_canvas(canvas_resultados, 500, 500, 22, "rgb(255, 165, 0)")
+    dibujar_en_canvas(canvas_resultados, 1500, 1500, 22, "rgb(255, 165, 0)")
+    function dibujar_en_canvas(elemento_canvas, pixel_x, pixel_y, radio_circulo, color){
+        var lienzo = elemento_canvas
+		if (lienzo && lienzo.getContext) {
+		var contexto = lienzo.getContext("2d");
+			if (contexto) {
+                    var X = pixel_x;
+					var Y = pixel_y;
+					var r = radio_circulo;
+					contexto.strokeStyle = color;
+					contexto.fillStyle = color;
+					contexto.lineWidth -= 1;
+					contexto.arc(X,Y,r,0,2*Math.PI);
+					contexto.fill();
+					contexto.stroke();
+                    contexto.strokeStyle = "rgba(0, 0, 0, 0)";
+					contexto.fillStyle = "rgba(0, 0, 0, 0)";
+			}
+		}
+    }
+
+
+    /*const objeto_tonos = {
+        0.5 : [ 0, 30, 255, 255 ], 
+        1   : [ 0, 100, 255, 255 ],
+        2   : [ 0, 135, 255, 255 ], 
+        4   : [ 0, 180, 255, 255 ], 
+        8   : [ 67, 131, 35, 255 ], 
+        16  : [ 0, 210, 0, 255 ], 
+        32  : [ 255, 187, 0, 255 ], 
+        64  : [ 255, 127, 0, 255 ], 
+        128 : [ 255, 0, 0, 255 ], 
+        256 : [ 255, 0, 255, 255 ]  
+    };
+
+    var contenedor_imagenes = document.getElementById('contenedor_imagenes')
+    var array_imagenes = new Array()
+    var array_canvas = new Array()
+
+    for (k = 0; k < contenedor_imagenes.childElementCount; k++){    
+        //console.log(contenedor_imagenes.children[k] )
+        array_imagenes.push(contenedor_imagenes.children[k])
+        array_canvas.push(document.createElement('canvas'))
+        array_canvas[k].width = array_imagenes[k].width
+        array_canvas[k].height = array_imagenes[k].height
+        array_canvas[k].getContext('2d').drawImage(array_imagenes[k], 0, 0, array_canvas[k].width, array_canvas[k].height);
+    }
+
+    //let ancho_canvas = array_canvas[0].width
+    //let alto_canvas = array_canvas[0].height
+    let pixel_inicio_x = 1000 //pixel posicion desde el que empezamos
+    let pixel_fin_x = 2000 //pixel posicion desde el que empezamos
+    let pixel_inicio_y = 1000 //pixel posicion desde el que empezamos
+    let pixel_fin_y = 2000 //pixel posicion desde el que empezamos
+    let numero_objetos_canvas = array_canvas.length
+
+for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + 100){
+    for (let j = pixel_inicio_y; j < pixel_fin_y; j = j + 100){
+        let pixel_horizontal = i
+        let pixel_vertical = j
+
+        for (c = 0; c < numero_objetos_canvas; c++){
+            let sumatorio = 0
+            var pixelData = array_canvas[c].getContext('2d').getImageData(pixel_horizontal, pixel_vertical, 1, 1).data;
+            for (let key in objeto_tonos) {
+                if( pixelData[0] == objeto_tonos[key][0] && pixelData[1] == objeto_tonos[key][1] && pixelData[2] == objeto_tonos[key][2]){
+                    //console.log(key + ' = coor_x: ' + i + ' , coor_y: ' + j)
+                    sumatorio = sumatorio + parseInt(key)
+            }
+            if (sumatorio != 0){
+                //dibujar_en_canvas(canvas_resultados, i, j, 22, "rgb("+ objeto_tonos[sumatorio][0] +", "+ objeto_tonos[sumatorio][0] +", "+ objeto_tonos[sumatorio][0] +")")
+                console.log('sumatorio : ' + sumatorio + ' --- coor_x: ' + i + ' , coor_y: ' + j)
+            }
+            
+        }
+    }
+    }
+}*/
+            
+</script>
+
+    </body>
+</html>
