@@ -33,6 +33,8 @@
 
 <script>
 
+    var startTime = performance.now()
+
     var canvas_resultados = document.getElementById('canvas_resultados')
     var canvas_context = canvas_resultados.getContext("2d");
     //canvas_context.fillRect(20, 20, 150, 100);
@@ -115,7 +117,7 @@
 
     var pixelData; 
     var resolucion = 100
-for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + resolucion){
+/*for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + resolucion){
     for (let j = pixel_inicio_y; j < pixel_fin_y; j = j + resolucion){
         let pixel_horizontal = i
         let pixel_vertical = j
@@ -160,7 +162,13 @@ for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + resolucion){
         sumatorio = 0
     }
     alert('PROCESO TERMINADO')
-}
+}*/
+
+
+
+
+var endTime = performance.now()
+alert('Duracion del proceso: ' + (endTime - startTime))
             
 </script>
 
