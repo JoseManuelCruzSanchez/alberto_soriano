@@ -46,44 +46,31 @@
         return Math.max.apply(null, array_numeros.filter(function(v){return v <= numero_buscado}))
     }
 
-    
-
-    
-    //dibujar_en_canvas(canvas_resultados, 500, 500, 1, "rgb(255, 165, 0)")
-    //dibujar_en_canvas(canvas_resultados, 500, 500, 22, "rgb(255, 165, 0)")
-    //dibujar_en_canvas(canvas_resultados, 1500, 1500, 22, "rgb(255, 165, 0)")
-    function dibujar_en_canvas(elemento_canvas, pixel_x, pixel_y, radio_circulo, color){
-        var lienzo = elemento_canvas
-		if (lienzo && lienzo.getContext) {
-		var contexto = lienzo.getContext("2d");
-			if (contexto) {
-                    var X = pixel_x;
-					var Y = pixel_y;
-					var r = radio_circulo;
-					contexto.strokeStyle = color;
-					contexto.fillStyle = color;
-					contexto.lineWidth -= 1;
-					contexto.arc(X,Y,r,0,2*Math.PI);
-					contexto.fill();
-					contexto.stroke();
-                    contexto.strokeStyle = "rgba(0, 0, 0, 0)";
-					contexto.fillStyle = "rgba(0, 0, 0, 0)";
-			}
-		}
-    }
+    /*const objeto_tonos = {
+        0.5 : [ 0, 30, 255, 255 ],  //285
+        1   : [ 0, 100, 255, 255 ], //355
+        2   : [ 0, 135, 255, 255 ], //390
+        4   : [ 0, 180, 255, 255 ], //435
+        8   : [ 67, 131, 35, 255 ], //233
+        16  : [ 0, 210, 0, 255 ],   //210
+        32  : [ 255, 187, 0, 255 ], //442
+        64  : [ 255, 127, 0, 255 ], //382
+        128 : [ 255, 0, 0, 255 ],   //255
+        256 : [ 255, 0, 255, 255 ]  //510
+    };*/
 
 
     const objeto_tonos = {
-        0.5 : [ 0, 30, 255, 255 ], 
-        1   : [ 0, 100, 255, 255 ],
-        2   : [ 0, 135, 255, 255 ], 
-        4   : [ 0, 180, 255, 255 ], 
-        8   : [ 67, 131, 35, 255 ], 
-        16  : [ 0, 210, 0, 255 ], 
-        32  : [ 255, 187, 0, 255 ], 
-        64  : [ 255, 127, 0, 255 ], 
-        128 : [ 255, 0, 0, 255 ], 
-        256 : [ 255, 0, 255, 255 ]  
+        0.5 : 285,
+        1   : 355,
+        2   : 390,
+        4   : 435,
+        8   : 233,
+        16  : 210,
+        32  : 442,
+        64  : 382,
+        128 : 255,
+        256 : 510
     };
 
     
@@ -127,7 +114,7 @@
     //console.log(numero_objetos_canvas)
 
     var pixelData; 
-    var resolucion = 60
+    var resolucion = 100
 for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + resolucion){
     for (let j = pixel_inicio_y; j < pixel_fin_y; j = j + resolucion){
         let pixel_horizontal = i
@@ -137,9 +124,11 @@ for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + resolucion){
         for (c = 0; c < numero_objetos_canvas; c++){
             //console.log(i + ' ' + j)
             pixelData = array_canvas[c].getContext('2d').getImageData(pixel_horizontal, pixel_vertical, 1, 1).data;
+            let suma_valores_rgb_pixel = pixelData[0] + pixelData[1] + pixelData[2]
+
             for (let key in objeto_tonos) {
 
-                if( pixelData[0] == objeto_tonos[key][0] && pixelData[1] == objeto_tonos[key][1] && pixelData[2] == objeto_tonos[key][2]){
+                if( objeto_tonos[key] == suma_valores_rgb_pixel){
 
                     //console.log(i + ' ' + j)
                     //console.log(pixelData)
