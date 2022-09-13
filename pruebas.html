@@ -1,4 +1,5 @@
 <html><head>
+    <meta charset="utf-8">
     <style>
         body {padding: 1px; position: relative;}
         pre {color: black}
@@ -142,13 +143,16 @@ const objeto_tonos_colores_resultantes = {
 
 
 
+var contenedor_imagenes = document.getElementById('contenedor_imagenes')
+var array_imagenes = new Array()
+var array_canvas = new Array()
+var num_imagenes = contenedor_imagenes.childElementCount
 
+
+var obj;
 
 function crear_mapa_de_colores_resultante() {
-    var contenedor_imagenes = document.getElementById('contenedor_imagenes')
-    var array_imagenes = new Array()
-    var array_canvas = new Array()
-    var num_imagenes = contenedor_imagenes.childElementCount
+
 
     for (let k = 0; k < num_imagenes; k++){
         array_imagenes.push(contenedor_imagenes.children[k])
@@ -156,50 +160,57 @@ function crear_mapa_de_colores_resultante() {
         array_canvas[k].width = array_imagenes[k].width
         array_canvas[k].height = array_imagenes[k].height
         array_canvas[k].getContext('2d').drawImage(array_imagenes[k], 0, 0, array_canvas[k].width, array_canvas[k].height);
+        array_canvas[k] = array_canvas[k].getContext('2d')
     }
+
+    
 
 
     var pixel_inicio_x =  1050    //pixel posicion desde el que empezamos  1050
-    var pixel_fin_x =     1150    //pixel posicion desde el que empezamos  1450
+    var pixel_fin_x =     1450    //pixel posicion desde el que empezamos  1450
     var pixel_inicio_y =  1800    //pixel posicion desde el que empezamos  1800
-    var pixel_fin_y =     2000    //pixel posicion desde el que empezamos  2150
+    var pixel_fin_y =     2150    //pixel posicion desde el que empezamos  2150
     var numero_objetos_canvas = array_canvas.length
     var sumatorio = 0
 
     var pixelData;
     var suma_valores_rgb_pixel;
-    var resolucion = 20
+    var resolucion = 30
+
+
+    obj = array_canvas[0].getImageData(1050, 1800, (pixel_fin_x - pixel_inicio_x), (pixel_fin_y - pixel_inicio_y)).data
+
+    console.log(obj)
 
 
 
+    //https://stackoverflow.com/questions/6735470/get-pixel-color-from-canvas-on-mousemove
+
+    /*for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + resolucion){
+        for (let j = pixel_inicio_y; j < pixel_fin_y; j = j + resolucion){
+
+            for (c = 0; c < numero_objetos_canvas; c++){
+
+                pixelData = array_canvas[c].getImageData(i, j, 1, 1).data;
+                suma_valores_rgb_pixel = pixelData[0] + pixelData[1] + pixelData[2]
 
 
+                sumatorio = sumatorio + parseInt(objeto_tonos_2[suma_valores_rgb_pixel])
+            }
 
-for (let i = pixel_inicio_x; i < pixel_fin_x; i = i + resolucion){
-    for (let j = pixel_inicio_y; j < pixel_fin_y; j = j + resolucion){
+            sumatorio = obtener_numero_mas_cercano_por_abajo(Object.keys(objeto_tonos), sumatorio)
+            // console.log("sumatorio TOTAL: " + sumatorio)
 
-        for (c = 0; c < numero_objetos_canvas; c++){
-
-            pixelData = array_canvas[c].getContext('2d').getImageData(i, j, 1, 1).data;
-            suma_valores_rgb_pixel = pixelData[0] + pixelData[1] + pixelData[2]
-            console.log(suma_valores_rgb_pixel)
-
-            sumatorio = sumatorio + parseInt(objeto_tonos_2[suma_valores_rgb_pixel])
+            if (sumatorio > 0){
+                dibujar_en_canvas_short(canvas_context, resolucion, i, j, objeto_tonos_colores_resultantes[sumatorio])
+                //console.log("sumatorio: " + sumatorio)
+                //console.log('sumatorio : ' + sumatorio + ' --- coor_x: ' + i + ' , coor_y: ' + j)
+            }else{
+                //dibujar_en_canvas_short(canvas_context, 30, i, j, "black")
+            }
+            sumatorio = 0
         }
-
-        /*sumatorio = obtener_numero_mas_cercano_por_abajo(Object.keys(objeto_tonos), sumatorio)
-        // console.log("sumatorio TOTAL: " + sumatorio)
-
-        if (sumatorio > 0){
-            dibujar_en_canvas_short(canvas_context, resolucion, i, j, objeto_tonos_colores_resultantes[sumatorio])
-            //console.log("sumatorio: " + sumatorio)
-            //console.log('sumatorio : ' + sumatorio + ' --- coor_x: ' + i + ' , coor_y: ' + j)
-        }else{
-            //dibujar_en_canvas_short(canvas_context, 30, i, j, "black")
-        }*/
-        sumatorio = 0
-    }
-}
+    }*/
 
 
 
@@ -224,7 +235,6 @@ function hacer_visible_boton_iniciar(){
     document.getElementById('btn_iniciador').style.display = 'block'
     document.getElementById('btn_iniciador').addEventListener('click', crear_mapa_de_colores_resultante)
     var input_resolucion = document.getElementById('input_resolucion').value
-    console.log(input_resolucion)
 }
 
 
